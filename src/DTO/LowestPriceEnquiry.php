@@ -2,10 +2,16 @@
 
 namespace App\DTO;
 
+use App\Entity\Product;
 use JetBrains\PhpStorm\Internal\TentativeType;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 class LowestPriceEnquiry implements  PromotionEnquiryInterface
 {
+    #[Ignore]
+    private ?Product $product;
+
+    #[Ignore]
     private ?int $productId;
 
     private ?int $quantity;
@@ -23,6 +29,23 @@ class LowestPriceEnquiry implements  PromotionEnquiryInterface
     private ?int $promotionId;
 
     private ?string $promotionName;
+
+    /**
+     * @return Product|null
+     */
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product|null $product
+     */
+    public function setProduct(?Product $product): void
+    {
+        $this->product = $product;
+    }
+
 
     /**
      * @return int|null
@@ -168,11 +191,11 @@ class LowestPriceEnquiry implements  PromotionEnquiryInterface
         $this->promotionName = $promotionName;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return get_object_vars($this);
-    }
+//    /**
+//     * @return array
+//     */
+//    public function jsonSerialize(): array
+//    {
+//        return get_object_vars($this);
+//    }
 }
